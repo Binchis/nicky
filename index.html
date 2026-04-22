@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Nicky 💖 - Ramo Abierto</title>
+
+<style>
+/* Reset de márgenes y color de fondo */
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle, #0a0a1a, #050510);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    overflow-y: auto; /* Permite scroll vertical */
+    overflow-x: hidden; /* Evita scroll horizontal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- BOTÓN DE INICIO --- */
+#btn {
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    border: none;
+    border-radius: 50px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(255, 77, 109, 0.5);
+    z-index: 100; 
+    transition: opacity 1s, transform 0.5s;
+}
+
+#btn:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+#btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+/* --- CONTENEDOR DE LA EXPERIENCIA --- */
+#experience-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0; 
+    transition: opacity 1.5s;
+    pointer-events: none; 
+    padding-top: 5vh; 
+}
+
+#experience-wrapper.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- CONTENEDOR DEL RAMO --- */
+#ramo-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; 
+    margin-bottom: 8vh; 
+}
+
+/* Lienzo ampliado a 800x700 para que no se amontonen */
+#ramo {
+    position: relative;
+    width: 800px; 
+    height: 700px;
+    transform-origin: bottom center;
+}
+
+/* Si la pantalla es más pequeña que el ramo, lo escalamos para que quepa */
+@media (max-width: 850px) {
+    #ramo {
+        transform: scale(calc(100vw / 850));
+    }
+}
+
+/* --- SVG Y TALLOS --- */
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+path.tallo {
+    stroke: #2ecc71; 
+    stroke-width: 6;
+    fill: none;
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    transition: stroke-dashoffset 2.5s ease-out; 
+}
+
+/* Cinta en la base del ramo */
+#ramo-tie {
+    fill: #ff9fb2;
+    opacity: 0;
+    transition: opacity 1s;
+    transition-delay: 1.5s;
+}
+
+#experience-wrapper.visible #ramo-tie {
+    opacity: 1;
+}
+
+/* --- FLORES (FOTOS) --- */
+.flor {
+    position: absolute;
+    width: 140px; 
+    height: 140px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 3px solid #ff9fb2;
+    box-shadow: 0 0 25px rgba(255, 159, 178, 0.5);
+    
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5); 
+    transition: opacity 1.2s, transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+}
+
+.flor::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 50%;
+    background: inherit;
+    filter: brightness(1.15); 
+}
+
+.flor.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); 
+}
+
+/* --- POEMA --- */
+#poema {
+    width: 90%;
+    max-width: 650px;
+    text-align: center;
+    font-size: 1.3rem; 
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8); 
+    padding: 0 20px 10vh 20px; 
+    box-sizing: border-box;
+    
+    opacity: 0;
+    transition: opacity 2s;
+    transition-delay: 3s; 
+}
+
+#experience-wrapper.visible #poema {
+    opacity: 1;
+}
+</style>
+</head>
+
+<body>
+
+    <button id="btn">Para Nicky 🌸</button>
+
+    <div id="experience-wrapper">
+        <div id="ramo-container">
+            <div id="ramo">
+                <svg id="tallos" viewBox="0 0 800 700">
+                    <path class="tallo" d="M400 700 Q200 500 50 250"/>
+                    <path class="tallo" d="M400 700 Q250 450 140 150"/>
+                    <path class="tallo" d="M400 700 Q300 400 230 90"/>
+                    <path class="tallo" d="M400 700 Q350 350 315 50"/>
+                    <path class="tallo" d="M400 700 Q400 350 400 30"/>
+                    <path class="tallo" d="M400 700 Q450 350 485 50"/>
+                    <path class="tallo" d="M400 700 Q500 400 570 90"/>
+                    <path class="tallo" d="M400 700 Q550 450 660 150"/>
+                    <path class="tallo" d="M400 700 Q600 500 750 250"/>
+                    
+                    <path id="ramo-tie" d="M370 680 Q400 660 430 680 Q430 700 400 700 Q370 700 370 680 Z" fill="#ff9fb2"/>
+                </svg>
+            </div>
+        </div>
+
+        <div id="poema">
+            No sé cómo pasó,<br>
+            pero ahora todo me lleva a ti.<br><br>
+
+            en lo simple,<br>
+            en lo cotidiano,<br>
+            en esos momentos donde no hay ruido<br>
+            y aún así estás.<br><br>
+
+            no es costumbre,<br>
+            no es coincidencia…<br><br>
+
+            es que te quiero,<br>
+            y ya no hay forma<br>
+            de no sentirlo así.
+        </div>
+    </div>
+
+<script>
+const btn = document.getElementById("btn");
+const experienceWrapper = document.getElementById("experience-wrapper");
+const ramo = document.getElementById("ramo");
+
+btn.addEventListener("click", () => {
+    btn.classList.add("hidden");
+    experienceWrapper.classList.add("visible");
+
+    // Animar tallos
+    document.querySelectorAll("path.tallo").forEach((p, i) => {
+        setTimeout(() => {
+            p.style.strokeDashoffset = 0;
+        }, i * 200); 
+    });
+
+    // --- NUEVAS COORDENADAS MÁS ESPACIADAS ---
+    // Puntas de los 9 tallos principales
+    const pathEndpoints = [
+        [50, 250], [140, 150], [230, 90], [315, 50], [400, 30],
+        [485, 50], [570, 90], [660, 150], [750, 250]
+    ];
+    
+    // 7 Puntos de relleno distribuidos estratégicamente para que no se encimen
+    const fillerPoints = [
+        [160, 290], [270, 210], [400, 170], [530, 210], [640, 290],
+        [320, 310], [480, 310]
+    ];
+    
+    const todasLasPosiciones = [...pathEndpoints, ...fillerPoints];
+    
+    const delayBase = 1500; 
+    const delayPorFlor = 150; 
+
+    todasLasPosiciones.forEach((pos, i) => {
+        let flor = document.createElement("div");
+        flor.classList.add("flor");
+
+        // Al usar un lienzo de 800x700, estas coordenadas mapean exacto sin amontonarse
+        flor.style.left = pos[0] + "px";
+        flor.style.top = pos[1] + "px";
+
+        flor.style.backgroundImage = `url(${i + 1}.jpeg)`;
+
+        ramo.appendChild(flor);
+
+        setTimeout(() => {
+            flor.classList.add("visible");
+        }, delayBase + i * delayPorFlor);
+    });
+
+});
+</script>
+
+</body>
+</html>
